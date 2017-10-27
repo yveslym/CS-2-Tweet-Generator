@@ -6,11 +6,13 @@ def generate_word(number):
     path = "/usr/share/dict/words"
     index = 0
     list_of_word = []
+    open_file = open(path)
+    all_words = open_file.read().split()
     while index < number:
-        open_file = open(path).read().split()
-        random_word = open_file[random.randint(0, len(open_file)-1)]
+        random_word = all_words[random.randint(0, len(all_words) - 1)]
         list_of_word.append(random_word)
         index += 1
+    open_file.close()
     return list_of_word
 
 def print_list(list_of_word):

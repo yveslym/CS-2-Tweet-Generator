@@ -7,7 +7,7 @@ def reverse_word(word):
 
     ''' reverse by getting the index of the last character to the first'''
     index = len(word)-1
-    while index > -1:
+    while index >= 0:
         reversed_word.append(array[index])
         index -= 1
     return reversed_word

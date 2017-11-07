@@ -1,5 +1,7 @@
 import sys
 import pprint
+import time
+from operator import itemgetter
 def histogram(source_text):
 
     histogram_dict = {"":0}
@@ -11,42 +13,63 @@ def histogram(source_text):
 
 
 def unique_word(list_of_word):
-    unique_list = ['']#list(set(list_of_word))
-    count = 0
-    print("while looping #%s" % count)
-    for word in list_of_word:
-        print("for looping #%s" % count)
-        count +=1
-        index = 0
-        uniques = True
-        while index < len(unique_list):
-            if word == unique_list[index]:
-                uniques = False
+    # unique_list = ['']#list(set(list_of_word))
+    # count = 0
+    # print("while looping #%s" % count)
+    # for word in list_of_word:
+    #     print("for looping #%s" % count)
+    #     count +=1
+    #     index = 0
+    #     uniques = True
+    #     while index < len(unique_list):
+    #         if word == unique_list[index]:
+    #             uniques = False
+    #
+    #         index += 1
+    #     if uniques == True:
+    #         unique_list.append(word)
+    #
+    # return len(unique_list)
+    return list(set(list_of_word))
 
-            index += 1
-        if uniques == True:
-            unique_list.append(word)
-
-    return len(unique_list)
+def get_index_of_item(item, list_hist):
+    for index, item in enumerate(list_hist):
+        if list_hist[0] == item:
+            return index + 1
+    return -1
 
 def list_histogram(list_of_word):
-
     histogram_list = []
-    unique_list = list(set(list_of_word))
-    for word in unique_list:
-        count = 0
-        for next_word in list_of_word:
-            if word == next_word:
-                count += 1
-        new_histogram = [word,count]
-        histogram_list.append(new_histogram)
+    types = []
+    # unique_list = list(set(list_of_word))
 
-    print("\n\n Histogram list print word repeated more than 200 times: ")
-    for word in histogram_list:
-        if word[1] > 200:
-            print(word[0]+'\t'+str(word[1]))
+    start = time.time()
 
-    print("end of the list")
+    for word in list_of_word:
+        if word not in types:
+            histogram_list.append([word, 1])
+            types.append(word)
+
+        else:
+            # all_words = list(map(itemgetter(0), histogram_list))
+            # i = all_words.index(word)
+            # print("word " + word)
+            i = get_index_of_item(word, histogram_list)
+            histogram_list[i][1] += 1
+
+    print(histogram_list)
+    return histogram_list
+
+    # finish = time.time()
+    # print("List of List histogram after looping takes: %s seconds" % (finish - start))
+    #
+    #
+    # print("\n\n Histogram list print word repeated more than 200 times: ")
+    # for word in histogram_list:
+    #     if word[1] > 200:
+    #         print(word[0]+'\t'+str(word[1]))
+    #
+    # print("end of the list")
 
 
 def tuple_histogram(list_of_word):
@@ -64,6 +87,46 @@ def tuple_histogram(list_of_word):
     for word in histogram_tuple:
         if word[1] > 1000:
             print(word[0]+'\t'+str(word[1]))
+
+
+def counts_list(histo):
+
+    count_list = []
+    tempList = []
+    frequence = []
+    index = 0
+    for word in histo:
+        frequence.append(word[1])
+
+    while index < len(frequence):
+
+        for word in histo:
+            if word[1] == frequence[index]:
+                tempList.append(word[0])
+        new_count = [frequence[index],tempList]
+        count_list.append(new_count)
+        index += 1
+
+    for count in count_list:
+        if count[0] > 5000:
+            print("frequence %s: %s " % (count[0], count[1]))
+
+
+            #     if word[1] == count:
+            #         tempList.append(word[0])
+            #         index += 1
+            # count_list.append[count,tempList]
+            # tempList = []
+            # count += 1
+    # finish = time.time()
+    # print("List of List histogram after looping takes: %s seconds" % (finish - start))
+
+
+    # print("\n\n Histogram list print word repeated more than 200 times: ")
+    # for word in histogram_list:
+    #     if word[0] > 1000:
+    #         print(word[0]+'\t'+str(word[1]))
+
 
 
 
@@ -96,9 +159,26 @@ if __name__ == "__main__":
     param = sys.argv[1:]
     word = param[0]
     text_file = param[1]
-    print(param)
-    print(word)
-    print(text_file)
-    frequency(word,histogram(text_file))
-    list_histogram(histogram(text_file))
-    tuple_histogram(histogram(text_file))
+
+
+    start = time.time()
+    list_of_words = histogram(text_file)
+    finish = time.time()
+    print("reading takes: %s " % (finish - start))
+
+    # start = time.time()
+    # frequency(word,list_of_words)
+    # finish = time.time()
+    # print("dictionnary histogram takes: %s seconds" % (finish - start))
+
+    start = time.time()
+    histo = list_histogram(list_of_words)
+    finish = time.time()
+    print("List of List histogram takes: %s seconds" % (finish - start))
+
+    # start = time.time()
+    # tuple_histogram(list_of_words)
+    # finish = time.time()
+    # print("List of tuple histogram takes: %s seconds" % (finish - start))
+
+    #counts_list(histo)

@@ -29,7 +29,18 @@ class Dictogram(dict):
     def _get_list_of_words(self, text_file):
         return open(text_file).read().split()
 
+    def frequency(self,word):
+        if word in self:
+            return self[word]
+        else:
+            return 0
+
+
 if __name__ == "__main__":
-    dictogram = Dictogram("word.txt")
-    print("tokkens: "+str(dictogram.tokkens))
-    print("types: "+str(dictogram.types))
+    hictogram = Dictogram("project-guthemberg.txt")
+    print("tokkens: "+str(hictogram.tokkens))
+    # for word in dictogram:
+    #     if dictogram[word] > 500:
+    #         print(word+' '+str(dictogram[word]))
+    print("types: "+str(hictogram.types))
+    print("frequency of word 'spirit': "+str(hictogram.frequency('spirit')))

@@ -10,7 +10,7 @@ class linked_list_test(unittest.TestCase):
         tail = head
         assert(head.data == tail.data)
     
-    def test_add_node(self):
+    def test_add_new_node(self):
         head = Linked_List(1)
         tail = head
 
@@ -22,14 +22,30 @@ class linked_list_test(unittest.TestCase):
 
         #set head next to the tail
         head.next = tail
-
         assert(head.next.data == tail.data)
+
+    def test_length(self):
+        head = Linked_List(1)
+        node1 = Linked_List(2)
+        node2 = Linked_List(3)
+    
+    def test_append_to_the_end(self, node = None):
+        
+        head = Linked_List(1)
+        tail = head
+        new_node = Linked_List(2)
+
+        tail.next = new_node
+        tail = new_node
+        insert(head.next.data == tail.data)
+         
 
 
 
 
 if __name__ == '__main__':
     unittest.main()
+    
 
 
 

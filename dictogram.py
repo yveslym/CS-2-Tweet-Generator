@@ -44,3 +44,64 @@
 #     #         print(word+' '+str(dictogram[word]))
 #     print("types: "+str(hictogram.types))
 #     print("frequency of word 'spirit': "+str(hictogram.frequency('spirit')))
+
+
+from histogram import Histogram
+import pdb
+from pprint import pprint
+
+class Dictogram(dict):
+    def __init__(self, text_file = None):
+
+
+        self.histogram = None
+        if text_file is not None:
+            self.histogram = Histogram(text_file)
+            self.create_dictogram()
+
+    def create_dictogram(self):
+        if self.histogram is not None:
+            for index,word in enumerate(self.histogram.words_list):
+                if index + 1 > len(self.histogram.words_list)-1:
+                     return
+                next_word = self.histogram.words_list[index+1]
+
+                if word not in self:
+                    self[word] = {}
+                    histogram = Histogram()
+                    #pdb.set_trace()
+                    #histogram = {next_word:0}
+
+                    self[word] = histogram.add(next_word)
+                else:
+                    self.histogram = self[word]
+                    self[word] = self.histogram.add(next_word)
+
+
+
+
+
+                #
+                # if index + 1 > len(self.histogram.words_list)-1:
+                #     return
+                # next_word = self.histogram.words_list[index+1]
+                # next_histogram = self.histogram.get_histogram(next_word)
+                #
+                # if word in self and next_histogram not in self[word]:
+                #     self[word].append(next_histogram)
+                # else:
+                #     self[word] = []
+                #     self[word].append(self.histogram.get_histogram(next_word))
+                #
+
+
+if __name__ == "__main__":
+     dictogram = Dictogram("fish.txt")
+     # pprint('histogram: %s' % dictogram.histogram)
+     # print('\n\n')
+     pprint('dictogram: %s' % dictogram)
+
+
+     # print("tokkens: "+str(hictogram.tokkens))
+     # print("types: "+str(hictogram.types))
+     # print("frequency of word 'spirit': "+str(hictogram.frequency('spirit')))

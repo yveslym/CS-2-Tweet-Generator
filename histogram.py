@@ -203,26 +203,26 @@ class Histogram(dict):
         by one each time we count it
         if it's the first time increment the self.types'''
     def add(self,word, count = 1):
+
         if word not in self:
             self[word] = count
             self.types += 1
         else:
             self[word] += 1
         self.tokkens += 1
+        #pdb.set_trace()
+        return {word:self[word]}
 
     ''' Function to return the list of word from file'''
     def _get_list_of_words(self, text_file):
         return open(text_file).read().split()
+
+    def get_histogram(self, word):
+        #pdb.set_trace()
+        return {word:self[word]}
 
     def frequency(self,word):
         if word in self:
             return self[word]
         else:
             return 0
-
-
-# if __name__ == "__main__":
-#     hictogram = Histogram("project-guthemberg.txt")
-#     print("tokkens: "+str(hictogram.tokkens))
-#     print("types: "+str(hictogram.types))
-#     print("frequency of word 'spirit': "+str(hictogram.frequency('spirit')))

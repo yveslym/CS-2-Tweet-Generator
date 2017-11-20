@@ -153,15 +153,54 @@ class linked_list_test(unittest.TestCase):
 
         assert(find == False)
 
-    def test_delete_func(self):
+    def test_delete_implementation(self):
         
         ll = Linked_list(array)
 
-        assert (ll.delete(1)) == 1
+        assert ll.delete(1) == 1
         assert (ll.delete(4)) == 4
         assert (ll.delete(6)) == 6
         assert (ll.delete(9)) == None
         assert(ll.size == 3)
+
+    def test_replace(self):
+        
+        ll = Linked_list(array)
+        newItem = Node(8)
+        replaceItem = 6
+
+        current = ll.head
+        previous = current
+
+        while current:
+            if current.data == replaceItem:
+                current = current.next
+                previous.next = newItem
+                newItem.next = current
+                break
+            previous = current
+            current = current.next
+        assert (ll.find(lambda item: item == 8)) == 8
+        assert (ll.find(lambda item: item == 6)) == None
+
+    def test_replace_implementation(self):
+        ll = Linked_list(array)
+        assert ll.replace(8,1) == 8 #replace first element
+        assert ll.replace(9,3) == 9 #replace item in the middle
+        assert ll.replace(10,6) == 10 #replace last item
+        assert ll.replace(0,45) == None #replace item that doesn't exist
+        assert ll.size == 6 #size doesn't change
+    
+    def test_prepend_implementation(self):
+        ll = Linked_list()
+        assert ll.prepend(1) == 1
+        assert ll.prepend(2) == 2
+        assert ll.head.data == 2
+        assert ll.tail.data == 1
+        assert ll.size == 2
+
+        
+                
 
 
         

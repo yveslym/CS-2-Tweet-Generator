@@ -11,20 +11,34 @@ class Linked_list(object):
                 self.append(item)
     ''' function to happend to the end and update the size'''
     def append(self,item):
+        
         new_node = Node(item)
         if self.head is None:
             self.head = new_node
             self.tail = self.head
+            self.size += 1 
+            return item
         else:
             self.tail.next = new_node
             self.tail = new_node
-            self.length()
+            self.size += 1
+            return item
        
     '''function to happend to the front and update the size'''
-    def prepend(self,new_node):
-        new_node.next = self.head
-        self.head = new_node
-        self.length()
+    
+    def prepend(self,item):
+       
+        new_node = Node(item)
+        if self.head is None:
+            self.head = new_node
+            self.tail = self.head
+            self.size += 1
+            return item
+        else:
+            new_node.next = self.head
+            self.head = new_node
+            self.size += 1
+            return item
 
     def length(self):
         current = self.head
@@ -33,6 +47,8 @@ class Linked_list(object):
             count += 1
             current = current.next
         self.size = count
+    
+    
 
     def find(self,quality):
         current_node = self.head
@@ -51,7 +67,7 @@ class Linked_list(object):
         #delete first node and update size
         if item == self.head.data:
             self.head = self.head.next
-            self.length()
+            self.size -= 1
             return item
 
         #delete last node and update size
@@ -60,7 +76,7 @@ class Linked_list(object):
                 if current_node.next.data == self.tail.data:
                     current_node.next = None
                     self.tail = current_node
-                    self.length()
+                    self.size -= 1
                     return item
                 current_node = current_node.next
 
@@ -70,11 +86,28 @@ class Linked_list(object):
                 if current_node.data == item:
                     current_node = current_node.next
                     previous_node.next = current_node
-                    self.length()
+                    self.size -= 1
                     return item
 
                 previous_node = current_node
                 current_node = current_node.next
         return None
 
+    def replace(self,new_item, old_item):
+        new_node = Node(new_item)
+
+        current_node = self.head
+        previous_node = current_node
+
+        while current_node is not None:
+            if current_node.data == old_item:
+                current_node = current_node.next
+                previous_node.next = new_node
+                new_node.next = current_node
+                return new_item
+            previous_node = current_node
+            current_node = current_node.next
+        return None
+    
+    
         

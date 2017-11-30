@@ -11,3 +11,4 @@ class HashTable(object):
         while index < number_of_bucket:
             self.hash_table.append(self.bucket)
             index += 1
+            

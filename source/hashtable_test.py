@@ -33,7 +33,7 @@ class HashTableTest(unittest.TestCase):
         self.assertCountEqual(ht.values(), [1, 5])  # Ignore item order
         ht.set('X', 10)
         self.assertCountEqual(ht.values(), [1, 5, 10])  # Ignore item order
-
+    
     def test_items(self):
         ht = HashTable()
         assert ht.items() == []

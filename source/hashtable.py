@@ -5,10 +5,16 @@ import pdb
 
 class HashTable(object):
 
-    def __init__(self, init_size=8):
+    def __init__(self, init_size=8, iterable = None):
         """Initialize this hash table with the given initial size."""
         # Create a new list (used as fixed-size array) of empty linked lists
         self.buckets = [Linked_list() for _ in range(init_size)]
+
+        #insert element in the hash table if iterable is not none
+        if iterable is not None:
+            for item in iterable:
+                key,value  = item
+                self.set(key, value)
 
 
     def __str__(self):
@@ -40,6 +46,7 @@ class HashTable(object):
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all buckets
         # TODO: Collect all values in each bucket
+        # anotation: O(n)
         all_values = []
         for bucket in self.buckets:
             for key, value in bucket.items():
@@ -50,6 +57,7 @@ class HashTable(object):
         """Return a list of all items (key-value pairs) in this hash table.
         TODO: Running time: O(???) Why and under what conditions?"""
         # Collect all pairs of key-value entries in each bucket
+        # anotation: O(n)
         all_items = []
         for bucket in self.buckets:
             all_items.extend(bucket.items())
@@ -96,10 +104,10 @@ class HashTable(object):
         '''' iteract trough the list of bucket and check if the given
          element is in the bucket and return the value of the element'''
 
-        if key in self.keys():
+        if self.contains(key):
             bucket = self.buckets[self._bucket_index(key)]
-            key_value = bucket.find(lambda item: item[0] == key)
-            return key_value[1]
+            key, value = bucket.find(lambda item: item[0] == key)
+            return value
         else:
             raise KeyError('Key not found: {}'.format(key))
 
@@ -125,9 +133,6 @@ class HashTable(object):
         else:
             ''' append new item'''
             bucket.append(new_item)
-
-
-
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.

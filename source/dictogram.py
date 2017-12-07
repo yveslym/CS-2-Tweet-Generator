@@ -1,7 +1,7 @@
 #!python
 
 from __future__ import division, print_function  # Python 2 and 3 compatibility
-
+import pdb
 
 class Dictogram(dict):
     """Dictogram is a histogram implemented as a subclass of the dict type."""
@@ -20,10 +20,22 @@ class Dictogram(dict):
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         # TODO: Increase word frequency by count
+        if word not in self:
+            self[word] = count
+            self.types += 1
+        else:
+            self[word] += count
+        self.tokens += count
+
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
         # TODO: Retrieve word frequency count
+        #pdb.set_trace()
+        if word in self:
+            return self[word]
+        else:
+            return 0
 
 
 def print_histogram(word_list):

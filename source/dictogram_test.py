@@ -15,6 +15,7 @@ class DictogramTest(unittest.TestCase):
     fish_dict = {'one': 1, 'fish': 4, 'two': 1, 'red': 1, 'blue': 1}
 
     def test_entries(self):
+        
         dictogram = Dictogram(self.fish_words)
         # Verify histogram as dictionary of entries like {word: count}
         assert len(dictogram) == 5

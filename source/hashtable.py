@@ -15,8 +15,7 @@ class HashTable(object):
             for item in iterable:
                 key,value  = item
                 self.set(key, value)
-
-
+                
     def __str__(self):
         """Return a formatted string representation of this hash table."""
         items = ['{!r}: {!r}'.format(key, val) for key, val in self.items()]
